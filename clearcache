@@ -1,0 +1,49 @@
+#!/bin/bash 
+# This is to help users clear their cache for login issues.
+
+home=$(echo ~)
+now=$(date -I)
+cache="$home/.cache"
+
+# Check and see if there is a .cache folder...
+if [ -d "$cache" ]; then
+# Ask User if they want to delete it...
+    echo -n "Found your $cache/ Would you like to delete it? [Y/n] "
+
+    read -n 1 opt
+    echo
+
+    if [[ $opt == "Y" ]] || [[ -z "$opt" ]]; then
+        rm -rf "$cache" 2>/dev/null
+        echo "Removed $cache/"
+    else
+        echo "Moving on..."
+    fi
+fi
+
+ccache="$home/.ccache"
+
+# Check and see if there is a .ccache folder...
+if [ -d "$ccache" ]; then
+# Ask user if they want to delete it...
+    echo -n "Found your $ccache/ Would you like to delete it? [Y/n] "
+
+    read -n 1 opt
+    echo 
+
+    if [[ $opt == "Y" ]] || [[ -z "$opt" ]]; then
+        rm -rf "$ccache" 2>/dev/null
+        echo "Removed $ccache/"
+    else
+        echo "Moving on..."
+    fi
+fi
+
+# Check and see if .uc files exist...
+if ls ~/.uc* 1> /dev/null 2>&1; then
+# Remove files and inform user...
+  echo "Removing unnecessary files..."
+  rm ~/.uc* 2>/dev/null
+fi
+echo "Process Complete."
+
