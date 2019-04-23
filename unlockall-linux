@@ -1,0 +1,19 @@
+#!/bin/sh
+#
+# This is a shell script to help fix the 'Already running' message
+# trying to run Firefox after a network crash or outage.  This is
+# only for Linux systems.
+
+# Find instances of the .*lock files and remove them.
+find ~/.mozilla/firefox -name \.*lock -exec rm {} \;
+# Find instances of the *lock files and remove them.
+find ~/.mozilla/firefox -name \*lock -exec rm {} \;
+
+# This is to inform command line user that this has been done.
+echo Removed Firefox lock files.
+
+# Find instances of the SingletonLock and remove it.
+find ~/.config/google-chrome -name \SingletonLock -exec rm {} \;
+
+# This is to inform command line user that this has been done.
+echo Removed Google Chrome Lock files.
