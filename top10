@@ -1,0 +1,32 @@
+#!/bin/sh
+#Top 10 Script
+#Created by Scott Kasai
+#
+# Purpose - To be used to list the top 10 space used directories at the current user location
+# to help a user determine where to 'trim the fat' on their account.
+#
+# This also outputs their current quota to have a rough idea of how much they are 'over'
+# to determine if they need to do more trimming.
+
+printf "Top 10 space using directories at this location\n"
+printf "Size\tFolder\n"
+printf "(Megs)\n"
+du -sm * .??* | sort -rn | head
+
+printf "\n\nTotal disk usage for this location:\n"
+du -sm
+
+printf "\n\nYour quota:\n"
+#printf "        Curr  / Soft   / Hard\n"
+#quota -s | tail -n 1 | awk '{print "Space : ",$1,"/",$2,"/",$3,"\nFiles : ",$4,"/",$5,"/",$6}'
+printf "         Curr  / Soft\n"
+quota -s | tail -n 1 | awk '{print "Space : ",$1,"/",$2,"\nFiles : ",$4,"/",$5}'
+printf "\n\n"
+printf "Legend:\n"
+printf "\n"
+printf "Curr - Current Usage\n"
+printf "Soft - Soft Limit - Exceeding this will prevent creating new files\n"
+#printf "Hard - Hard Limit - You can't exceed this number\n
+printf "K == Kilobytes or Thousands\n"
+printf "M == Megabytes\n"
+printf "* - You have exceeded your quota.\n"
